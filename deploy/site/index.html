@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>德州扑克 · 人机对战</title>
+  <link rel="stylesheet" href="styles.css?v=%%V%%" />
+</head>
+<body>
+  <div id="app">
+    <header class="topbar">
+      <h1>德州扑克 <span class="sub">人机对战</span></h1>
+      <div class="topbar-right">
+        <span id="handCount">第 0 手</span>
+        <button id="btnMusic" class="ghost">🎵 音乐</button>
+        <button id="btnSfx" class="ghost">🔊 音效</button>
+        <button id="btnWinRate" class="ghost">胜率：隐藏</button>
+        <button id="btnNewGame" class="ghost">新游戏</button>
+      </div>
+    </header>
+
+    <main id="table">
+      <div id="seats"><!-- 座位由 JS 生成 --></div>
+
+      <div id="center">
+        <div id="pot" class="pot-center">底池 <b>¥0</b></div>
+        <div id="board"><!-- 公共牌 --></div>
+        <div id="burns" class="burns" title="烧牌堆（荷官发牌前烧掉的暗牌）"></div>
+        <div id="stageInfo"></div>
+      </div>
+    </main>
+
+    <div id="message"></div>
+
+    <div id="controls" class="controls" style="display:none">
+      <div class="grp grp-left">
+        <button id="btnFold" class="act danger">弃牌</button>
+        <button id="btnCheck" class="act">过牌</button>
+        <button id="btnCall" class="act primary">跟注</button>
+      </div>
+      <div class="grp grp-right">
+        <button id="btnR50" class="act warn">½ 池</button>
+        <button id="btnR66" class="act warn">⅔ 池</button>
+        <button id="btnR100" class="act warn">满池</button>
+        <div id="raiseWrap" class="raise-wrap">
+          <button id="btnRaiseMinus" class="step">−</button>
+          <input type="range" id="raiseRange" />
+          <button id="btnRaisePlus" class="step">+</button>
+        </div>
+        <button id="btnAllIn" class="act allin">All In</button>
+      </div>
+    </div>
+
+    <div class="bottom-row">
+      <button id="btnNext" class="big-btn" style="display:none">下一手 ▶</button>
+      <div id="log" class="log"></div>
+    </div>
+  </div>
+
+  <!-- 开始界面 -->
+  <div id="startScreen" class="overlay">
+    <div class="panel">
+      <h2>德州扑克 · 人机对战</h2>
+      <p class="hint">开局前，先设置一下</p>
+
+      <div class="setting">
+        <label>游戏人数</label>
+        <div id="playerCount" class="seg">
+          <button data-n="2">2</button>
+          <button data-n="3">3</button>
+          <button data-n="4" class="on">4</button>
+          <button data-n="5">5</button>
+          <button data-n="6">6</button>
+        </div>
+      </div>
+
+      <div class="setting">
+        <label>AI 激进度 <span id="aggLabel" class="tag">均衡</span></label>
+        <input type="range" id="aggSlider" min="0" max="100" value="50" />
+        <div class="scale"><span>保守</span><span>均衡</span><span>激进</span></div>
+      </div>
+
+      <div class="setting">
+        <label>初始筹码</label>
+        <div id="stackCount" class="seg">
+          <button data-s="500">500</button>
+          <button data-s="1000" class="on">1000</button>
+          <button data-s="2000">2000</button>
+          <button data-s="5000">5000</button>
+        </div>
+      </div>
+
+      <button id="btnStart" class="big-btn">开始游戏</button>
+      <p class="foot" id="footInfo">大盲 ¥20 · 小盲 ¥10</p>
+    </div>
+  </div>
+
+  <!-- 礼花画布 -->
+  <canvas id="confetti" class="confetti-canvas"></canvas>
+
+  <!-- 冠军胜利展示（屏幕中下部含新游戏按钮） -->
+  <div id="victory" class="victory hide">
+    <div class="victory-card">
+      <div class="victory-crown">👑</div>
+      <div class="victory-title">冠军诞生！</div>
+      <div class="victory-name" id="victoryName"></div>
+      <div class="victory-cards" id="victoryCards"></div>
+      <div class="victory-stack" id="victoryStack"></div>
+    </div>
+    <button id="btnNewGameCenter" class="big-btn victory-btn">再来一局</button>
+  </div>
+
+  <script src="engine.js?v=%%V%%"></script>
+  <script src="sfx.js?v=%%V%%"></script>
+  <script src="ui.js?v=%%V%%"></script>
+</body>
+</html>
